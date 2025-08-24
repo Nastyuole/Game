@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static WindowsFormsApp1.Form2;
 
 namespace WindowsFormsApp1
 {
@@ -29,10 +30,24 @@ namespace WindowsFormsApp1
             double baseHP = rand.Next((int)MinHP, (int)MaxHP + 1);
             double baseAttack = rand.Next((int)MinAttack, (int)MaxAttack + 1);
 
-            double levelMultiplier = 1 + (playerLevel - 1)  * 0.32; 
+            double scaledHP = baseHP + (playerLevel * 7);
+            double scaledAttack = baseAttack + (playerLevel * 2);
 
-            double scaledHP = baseHP * levelMultiplier;
-            double scaledAttack = baseAttack * (1 + (playerLevel - 1) * 0.5);
+            double difficultyMultiplier = 1.0;
+            switch (SessionData.GameDifficulty)
+            {
+                case Difficulty.Easy:
+                    difficultyMultiplier = 0.8;
+                    break;
+                case Difficulty.Normal:
+                    difficultyMultiplier = 1.0;
+                    break;
+                case Difficulty.Hard:
+                    difficultyMultiplier = 1.6;
+                    break;
+            }
+
+            scaledHP *= difficultyMultiplier;
             var enemy = new Character(Name, scaledHP, scaledAttack, 0, 0);
             enemy.Level = playerLevel;
             return enemy;

@@ -18,9 +18,6 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent(); Button animatedButton = new Button();
-            animatedButton.FlatStyle = FlatStyle.Flat;
-            animatedButton.FlatAppearance.BorderSize = 0;
-            animatedButton.BackColor = Color.LightBlue;
         }
        
         private void button1_Click(object sender, EventArgs e)

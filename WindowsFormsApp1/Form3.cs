@@ -135,7 +135,7 @@ namespace WindowsFormsApp1
         }
         void Boss()
         {
-            var bossTemplate = new EnemyTemplate("Wywern", 111, 121, 21, 24, player.Level);
+            var bossTemplate = new EnemyTemplate("Wywern", 115, 131, 21, 26, player.Level);
             enemy = bossTemplate.CreateInstance(rand, player.Level);
 
             MessageBox.Show($"!!! Boss {enemy.Name} Appeared with {enemy.CurrentHP:F2} hp and {enemy.Attack:F2} attack!");
@@ -159,7 +159,7 @@ namespace WindowsFormsApp1
         }
         public void UpdateUI()
         {
-            label1.Text = $"{SessionData.Username} HP: {player.CurrentHP:F2}/{player.MaxHP:F2} and Armor: {player.Armor}";
+            label1.Text = $"{SessionData.Username} HP: {player.CurrentHP:F2}/{player.MaxHP:F2} and Armor: {player.Armor}, Difficulty: {SessionData.GameDifficulty}";
             label2.Text = $"{enemy.Name} HP: {enemy.CurrentHP:F2}/{enemy.MaxHP:F2}";
             label7.Text = $" Level {player.Level} |  Exp: {player.Experience}/{player.NextLevelExp}";
             label8.Text = $"MP: {player.CurrentMana:F1}/{player.MaxMana}";
@@ -216,12 +216,12 @@ namespace WindowsFormsApp1
             {
                 if (enemy.Name == "Goblin" || enemy.Name == "Skelet" || enemy.Name == "Ghost" || enemy.Name == "Wywern")
                 {
-                    if (chance == 7 && enemy.CurrentHP < enemy.MaxHP * 0.9)
+                    if (chance == 7 && enemy.CurrentHP != enemy.MaxHP)
                     {
                         double hheal = 0;
                         if (enemy.Name == "Wywern")
                         {
-                            hheal = 40 + player.Level * 2;
+                            hheal = 45 + player.Level * 2;
                             enemy.CurrentHP = Math.Min(enemy.CurrentHP + hheal, enemy.MaxHP);
                         }
                         else
@@ -236,7 +236,7 @@ namespace WindowsFormsApp1
                         double LightDMG = 0;
                         if (enemy.Name == "Wywern")
                         {
-                            LightDMG = 30 + player.Level * 2;
+                            LightDMG = 35 + player.Level * 2;
                             player.TakeDamage(40 + player.Level * 1.5);
                         }
                         else
